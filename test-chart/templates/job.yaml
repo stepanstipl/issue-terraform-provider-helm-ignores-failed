@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: default
+  name: test-chart
+spec:
+  template:
+    metadata:
+      labels:
+        app: test-chart
+    spec:
+      containers:
+      - name: test
+        image: '{{ .Values.image }}'
+        command: [ '/bin/sh', '-c', 'while true; do date; wait 60; done']
+      restartPolicy: OnFailure
